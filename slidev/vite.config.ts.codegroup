@@ -1,0 +1,15 @@
+import { defineConfig } from 'vite'
+import CodeGroup from 'markdown-it-code-group'
+
+export default defineConfig({
+  slidev: {
+    markdown: {
+      /* markdown-it options */
+      markdownItSetup(md) {
+        /* custom markdown-it plugins */
+        md.use(CodeGroup)
+      },
+    },
+    /* options for other plugins */
+  },
+})
