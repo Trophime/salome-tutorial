@@ -1,0 +1,116 @@
+{
+	"name": "Salome Tutorial",
+	"build": {
+		"dockerfile": "Dockerfile"
+	},
+	"runArgs": [
+		"--cap-add=SYS_PTRACE",
+		"--security-opt",
+		"seccomp=unconfined",
+		"--net",
+		"host",
+		"-e",
+		"DISPLAY=${env:DISPLAY}",
+		"-v",
+		"/tmp/.X11-unix:/tmp/.X11-unix",
+		"-v",
+		"${env:HOME}/.Xauthority:/home/feelpp/.Xauthority",
+		"--gpus",
+		"all"
+	],
+	"mounts": [
+		// "source=${localWorkspaceFolder}\\..\\python_magnetsetup\\data,target=/data,type=bind,consistency=cached"
+		"source=${localWorkspaceFolder}/../python_magnetsetup/data,target=/data,type=bind,consistency=cached"
+	],
+	// Use 'settings' to set *default* container specific settings.json values on container create. 
+	// You can edit these settings after create using File > Preferences > Settings > Remote.
+	"customizations": {
+		"settings": {
+			"terminal.integrated.defaultProfile.linux": "bash",
+			"python.defaultInterpreterPath": "/usr/bin/python",
+			"python.formatting.autopep8Path": "/usr/bin/autopep8",
+			"python.formatting.blackPath": "/usr/bin/black",
+			"python.formatting.yapfPath": "/usr/bin/yapf3",
+			"python.linting.banditPath": "/usr/bin/bandit",
+			"python.linting.flake8Path": "/usr/bin/flake8",
+			"python.linting.mypyPath": "/usr/bin/mypy",
+			"python.linting.pycodestylePath": "/usr/bin/pycodestyle",
+			"python.linting.pydocstylePath": "/usr/bin/pydocstyle",
+			"python.linting.pylintPath": "/usr/bin/pylint",
+			"python.testing.pytestPath": "/usr/bin/pytest-3"
+		},
+		// Add the IDs of extensions you want installed when the container is created in the array below.
+		"vscode": {
+			"extensions": [
+				"ms-python.python",
+				"ms-python.vscode-pylance",
+				"ms-python.black-formatter"
+			],
+			"python.analysis.extraPaths": [
+				"./HIFIMAGNET/src/HIFIMAGNET",
+				"./HIFIMAGNET/src/Tools",
+				"/opt/SALOME-9.13.0-DB12/INSTALL/GUI/lib/python3.11",
+				"/opt/SALOME-9.13.0-DB12/INSTALL/PyFMI/lib/python3.11/site-packages",
+				"/opt/SALOME-9.13.0-DB12/INSTALL/omniORB/lib/python3.11/site-packages",
+				"/opt/SALOME-9.13.0-DB12/INSTALL/GMSHPLUGIN/lib/python3.11/site-packages",
+				"/opt/SALOME-9.13.0-DB12/INSTALL/PARAVIS/lib/python3.11/site-packages",
+				"/opt/SALOME-9.13.0-DB12/INSTALL/SHAPER/lib/python3.11/site-packages",
+				"/opt/SALOME-9.13.0-DB12/INSTALL/PERSALYS/lib/python3.11/site-packages",
+				"/opt/SALOME-9.13.0-DB12/INSTALL/SMESH/lib/python3.11/site-packages",
+				"/opt/SALOME-9.13.0-DB12/INSTALL/HELLO/lib/python3.11/site-packages",
+				"/opt/SALOME-9.13.0-DB12/INSTALL/BLSURFPLUGIN/lib/python3.11/site-packages",
+				"/opt/SALOME-9.13.0-DB12/INSTALL/NETGENPLUGIN/lib/python3.11/site-packages",
+				"/opt/SALOME-9.13.0-DB12/INSTALL/SHAPERSTUDY/lib/python3.11/site-packages",
+				"/opt/SALOME-9.13.0-DB12/INSTALL/medfile/lib/python3.11/site-packages",
+				"/opt/SALOME-9.13.0-DB12/INSTALL/MEDCOUPLING/lib/python3.11/site-packages",
+				"/opt/SALOME-9.13.0-DB12/INSTALL/YACSGEN/lib/python3.11/site-packages",
+				"/opt/SALOME-9.13.0-DB12/INSTALL/PYCALCULATOR/lib/python3.11/site-packages",
+				"/opt/SALOME-9.13.0-DB12/INSTALL/LIBBATCH/lib/python3.11/site-packages",
+				"/opt/SALOME-9.13.0-DB12/INSTALL/HYBRIDPLUGIN/lib/python3.11/site-packages",
+				"/opt/SALOME-9.13.0-DB12/INSTALL/OPENTURNS/lib/python3.11/site-packages",
+				"/opt/SALOME-9.13.0-DB12/INSTALL/C3PO/lib/python3.11/site-packages",
+				"/opt/SALOME-9.13.0-DB12/INSTALL/ADAO/lib/python3.11/site-packages",
+				"/opt/SALOME-9.13.0-DB12/INSTALL/CALCULATOR/lib/python3.11/site-packages",
+				"/opt/SALOME-9.13.0-DB12/INSTALL/openturns/lib/python3.11/site-packages",
+				"/opt/SALOME-9.13.0-DB12/INSTALL/COMPONENT/lib/python3.11/site-packages",
+				"/opt/SALOME-9.13.0-DB12/INSTALL/KERNEL/lib/python3.11/site-packages",
+				"/opt/SALOME-9.13.0-DB12/INSTALL/HEXABLOCKPLUGIN/lib/python3.11/site-packages",
+				"/opt/SALOME-9.13.0-DB12/INSTALL/TTK/lib/python3.11/site-packages",
+				"/opt/SALOME-9.13.0-DB12/INSTALL/GEOM/lib/python3.11/site-packages",
+				"/opt/SALOME-9.13.0-DB12/INSTALL/HexoticPLUGIN/lib/python3.11/site-packages",
+				"/opt/SALOME-9.13.0-DB12/INSTALL/GHS3DPLUGIN/lib/python3.11/site-packages",
+				"/opt/SALOME-9.13.0-DB12/INSTALL/PYHELLO/lib/python3.11/site-packages",
+				"/opt/SALOME-9.13.0-DB12/INSTALL/YACS/lib/python3.11/site-packages",
+				"/opt/SALOME-9.13.0-DB12/INSTALL/pmml/lib/python3.11/site-packages",
+				"/opt/SALOME-9.13.0-DB12/INSTALL/nlopt/lib/python3.11/site-packages",
+				"/opt/SALOME-9.13.0-DB12/INSTALL/HOMARD/lib/python3.11/site-packages",
+				"/opt/SALOME-9.13.0-DB12/INSTALL/YDEFX/lib/python3.11/site-packages",
+				"/opt/SALOME-9.13.0-DB12/INSTALL/FIELDS/lib/python3.11/site-packages",
+				"/opt/SALOME-9.13.0-DB12/INSTALL/EFICAS/lib/python3.11/site-packages",
+				"/opt/SALOME-9.13.0-DB12/INSTALL/ParaView/lib/python3.11/site-packages",
+				"/opt/SALOME-9.13.0-DB12/INSTALL/ParaView/lib/paraview-5.11/site-packages/vtk",
+				"/opt/SALOME-9.13.0-DB12/INSTALL/ParaView/lib/paraview-5.11/site-packages",
+				"/opt/SALOME-9.13.0-DB12/INSTALL/opencv/lib/python3.11/site-packages",
+				"/opt/SALOME-9.13.0-DB12/INSTALL/omniORB/lib64/python3.11/site-packages",
+				"/opt/SALOME-9.13.0-DB12/INSTALL/omniORB/lib/python3.11/site-packages",
+				"/opt/SALOME-9.13.0-DB12/INSTALL/C3PO/lib/python3.11/site-packages",
+				"/opt/SALOME-9.13.0-DB12/INSTALL/MEDCOUPLING/lib/python3.11/site-packages",
+				"/opt/SALOME-9.13.0-DB12/INSTALL/medfile/lib/python3.11/site-packages",
+				"/opt/SALOME-9.13.0-DB12/INSTALL/openturns/lib/python3.11/site-packages",
+				"/opt/SALOME-9.13.0-DB12/INSTALL/PyFMI/lib/python3.11/site-packages",
+				"/opt/SALOME-9.13.0-DB12/INSTALL/nlopt/lib/python3.11/site-packages"
+			],
+			"[python]": {
+				"editor.defaultFormatter": "ms-python.black-formatter",
+				"editor.formatOnSave": true
+			}
+		}
+	},
+	// Use 'appPort' to create a container with published ports. If the port isn't working, be sure
+	// your server accepts connections from all interfaces (0.0.0.0 or '*'), not just localhost.
+	// "appPort": [],
+	// Uncomment the next line to run commands after the container is created.
+	// "postCreateCommand": "gcc -v",
+	// Comment out the next line if you want to run as root instead
+	"remoteUser": "feelpp"
+}
