@@ -1,5 +1,5 @@
 FROM trophime/salome:9.13.0-bookworm
-LABEL maintainer Christophe Trophime <christophe.trophime@lncmi.cnrs.fr>
+LABEL maintainer="Christophe Trophime <christophe.trophime@lncmi.cnrs.fr>"
 
 USER root
 
@@ -52,19 +52,6 @@ RUN apt-get update \
     && apt-get -y install python-is-python3 python3-pip python3-jinja2 \
     && apt-get -y install python3-autopep8 black yapf3 python3-bandit flake8 pydocstyle pylint python3-pytest mypy \
     #\
-    # hack to get rid of python 2.7 \
-    # && apt-get -y remove python-pyflakes pyflakes \
-    # && apt-get -y autoremove \
-    #\# [Optional] Add sudo support for the non-root user
-    && apt-get install -y sudo \
-    #&& if [ "$(lsb_release -cs)" = "focal" ]; then echo "Set disable_coredump false" > /etc/sudo.conf; fi \
-    && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME\
-    && chmod 0440 /etc/sudoers.d/$USERNAME \
-    # add github ssh key
-    && mkdir -p ~${USERNAME}/.ssh/ \
-    && ssh-keyscan github.com >> ~${USERNAME}/.ssh/known_hosts \
-    && chown -R ${USERNAME}.$USER_GID ~${USERNAME}/.ssh \
-    # \
     && mkdir -p /opt/DISTENE/license
 
 # Install pre-requisite packages 
@@ -78,8 +65,7 @@ RUN apt-get -y install python3-pint python3-yaml python3-psutil python3-memory-p
     && apt-get -y install python3-rich python3-natsort \
     && apt-get -y install debian-keyring lsb-release
 
-RUN groupadd -g ${VGLUSERS_ID} vglusers && \
-    usermod -a -G vglusers feelpp
+# RUN groupadd -g ${VGLUSERS_ID} vglusers && \
 
 
 
