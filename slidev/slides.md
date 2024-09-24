@@ -56,9 +56,9 @@ An opensource platform for simulation.
 
 Provides modules for:
 * CAD: 
-  * **GEOMETRY**
-  * **SHAPER**
-* Meshing: **MESH** with plugins **MeshGems**, **Gmsh**,..
+  * **GEOMETRY** original CAD modeler 
+  * **SHAPER** a **freecad** like CAD modeler
+* Meshing: **MESH** with plugins **MeshGems**, **Gmsh**, **Netgen**, ..
 * PostProcessing: **PARAVIS**
 
 Other modules include:
@@ -101,27 +101,26 @@ hideInToc: true
 
 * From [Salome website](https://www.salome-platform.org/?page_id=2433), select get tarball archive for your os:
 
-  ```bash
-  tar zxvf -C /opt/SALOME ..
-  cd /opt/SALOME
-  ./install_bin.sh
-  sat config SALOME-${VERSION}-native --check_system
-  salome test
-  /opt/SALOME/salome 
-  ```
+```bash
+tar zxvf -C /opt/SALOME ..
+cd /opt/SALOME
+./install_bin.sh
+sat config SALOME-${VERSION}-native --check_system
+salome test
+/opt/SALOME/salome 
+```
 
-* Container
-  * Docker
+* Docker
 
-  ```bash
-  xhost +local:root
-  docker run [-runtime=nvidia --gpus all -e NVIDIA_DRIVER_CAPABILITIES=all] -it --rm  --name salome -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix trophime/salome:9.13.0-bookworm
-  ```
+```bash
+xhost +local:root
+docker run [-runtime=nvidia --gpus all -e NVIDIA_DRIVER_CAPABILITIES=all] -it --rm  --name salome -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix trophime/salome:9.13.0-bookworm
+```
 
-  * Singularity
-  ```bash
-  singularity pull salome-9.13.sif
-  ```
+* Singularity
+```bash
+singularity pull salome-9.13.sif
+```
 
 For this tutorial, we recommend to use the archive tarball from salome.
 
@@ -129,7 +128,7 @@ For this tutorial, we recommend to use the archive tarball from salome.
 ---
 layout: two-cols
 ---
-# Salome Geometry module
+# **Geometry** module
 
 * GUI mode
   * Select a module
@@ -147,6 +146,7 @@ layout: two-cols
 ---
 layout: two-cols
 level: 2
+hideInToc: true
 ---
 
 # Workflow
@@ -208,7 +208,7 @@ hideInToc: true
 level: 3
 ---
 
-# Cube with hole
+# Cube with hole (TUI mode)
 
 * add params
 
@@ -216,6 +216,7 @@ level: 3
 import argparse
 parser = argparse.ArgumentParser()
 parser.add_argument("--dx", type=float, help="set dx length")
+...
 
 Box_1 = geompy.MakeBoxDXDYDZ(args.dx, args.dy, args.dz)
 Cylinder_1 = geompy.MakeCylinderRH(args.R, args.H)
@@ -231,9 +232,7 @@ hideInToc: true
 level: 3
 ---
 
-# Cube with hole
-
-* add params
+# Cube with hole (TUI mode)
 
 On Linux:
 ```bash
@@ -253,23 +252,11 @@ level: 3
 hideInToc: true
 ---
 
-# Cube with hole
+# Cube with hole (TUI mode)
 
 * Get id for Boundaries
-* Save CAD as XAO file
-  * Split into 2 files: xml + brep
   
 ```python
-import GEOM
-import sys
-import salome
-
-…
-Box_1 = geompy.MakeBoxDXDYDZ(args.dx, args.dy, args.dz)
-Cylinder_1 = geompy.MakeCylinderRH(args.R, args.H)
-geompy.TranslateDXDYDZ(Cylinder_1, args.dx/2., args.dy/2., -args.dz/4.)
-Cut_1 = geompy.MakeCutList(Box_1, [Cylinder_1], True)
-
 T = geompy.MakeVertex(0, 0, args.dz)
 Top = geompy.GetShapesOnPlaneWithLocation(Cut_1, geompy.ShapeType["FACE"], OZ, T, GEOM.ST_ON)
 GTop = geompy.CreateGroup(Cut_1, geompy.ShapeType["FACE"])
@@ -295,7 +282,23 @@ level: 3
 hideInToc: true
 ---
 
+# Cube with hole (TUI mode)
+
+* Save CAD as XAO file
+  * Split into 2 files: xml + brep
+
+::right::
+  
+---
+layout: two-cols
+level: 3
+hideInToc: true
+---
+
 # Boolean Operations
+
+add table of corespondance Gmsh / Salome
+
 
 ---
 layout: two-cols
@@ -303,15 +306,15 @@ level: 3
 hideInToc: true
 ---
 
-# Load CAD geometry
 
+# Load CAD geometry
 
 
 ---
 layout: two-cols
 ---
 
-# Meshing
+# **Mesh** Module
 
 * Structured Mesh
 * Unstructed Mesh
@@ -319,20 +322,91 @@ layout: two-cols
 ---
 layout: two-cols
 level: 2
-hideInToc: true
 ---
 
 # Structured Mesh
 ---
 layout: two-cols
 level: 2
-hideInToc: true
 ---
 
-# UnStructured Mesh
+# UnStructured Mesh (TUI)
+
+* **Netgen** plugin
+
+```python
+import  SMESH, SALOMEDS
+from salome.smesh import smeshBuilder
+
+smesh = smeshBuilder.New()
+
+Mesh_1 = smesh.Mesh(Cut_1)
+NETGEN_ = Mesh_1.Tetrahedron(algo=smeshBuilder.NETGEN_1D2D3D)
+NETGEN_3D_Params = NETGEN_.Parameters(smeshBuilder.SIMPLE)
+NETGEN_3D_Params.SetNumberOfSegments( 15 )
+…
+
+isDone = Mesh_1.Compute()
+```
+
 ---
 layout: two-cols
 level: 2
+---
+
+# UnStructured Mesh (TUI)
+
+* **MeshGems** plugin (requires q valid license)
+
+```python
+from salome.smesh import smeshBuilder
+smesh =  smeshBuilder.New(salome.myStudy)
+
+# create a mesh on the box
+mgtetraMesh = smesh.Mesh(box,"box: MG-Tetra and MG-CADSurf mesh")
+
+# create a MG_CADSurf algorithm for faces
+MG_CADSurf = mgtetraMesh.Triangle(algo=smeshBuilder.MG_CADSurf)
+MG_Tetra = mgtetraMesh.Tetrahedron(algo=smeshBuilder.MG_Tetra)
+
+# compute the mesh
+mgtetraMesh.Compute()
+```
+
+---
+layout: two-cols
+level: 2
+---
+
+# UnStructured Mesh (TUI)
+
+* Create Groups from geometry
+
+```python
+Cut_1_1 = Mesh_1.GroupOnGeom(Cut_1,'Cut_1',SMESH.VOLUME)
+Group_1_1 = Mesh_1.GroupOnGeom(Group_1,'Group_1',SMESH.FACE)
+[ Box_1_1, Face_1_1, Face_2_1, Face_3_1, Face_4_1, Face_5_1, Face_6_1 ] = Mesh_1.GetGroups()
+
+## Set names of Mesh objects
+smesh.SetName(Box_1_1, 'Cut_1')
+```
+
+* Save Mesh with MED Format
+
+```python
+Mesh_1.ExportMED( r'testcube.med', 0, SMESH.MED_V2_2, 1, None ,1)
+```
+
+* Convert to msh format
+
+```bash
+gmsh -0 testcube.med -o testcube.msh
+```
+
+  
+---
+layout: two-cols
+level: 3
 hideInToc: true
 ---
 
@@ -340,12 +414,14 @@ hideInToc: true
 
 ---
 layout: two-cols
+level: 2
 ---
 
 # Adapt Mesh
 
 ---
 layout: two-cols
+level: 2
 ---
 # Moving Mesh
 
