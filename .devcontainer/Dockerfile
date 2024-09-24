@@ -65,6 +65,9 @@ RUN apt-get -y install python3-pint python3-yaml python3-psutil python3-memory-p
     && apt-get -y install python3-rich python3-natsort \
     && apt-get -y install debian-keyring lsb-release
 
+# Install nodejs and npm 
+RUN apt-get -y install npm
+
 # RUN groupadd -g ${VGLUSERS_ID} vglusers && \
 
 
