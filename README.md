@@ -14,13 +14,14 @@ To install Salome:
 To list the registered configs:
 
 ```bash
-sat config list
+source sat/complete_sat.sh
+sat config --list
 ```
 
 To check your installation for a given config, eg. `SALOME-9.13.0-native`:
 
 ```bash
-sat config SALOME-9.13.0-native --check_system`
+sat config SALOME-9.13.0-native --check_system
 ```
 
 To run Salome testsuite:

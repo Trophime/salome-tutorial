@@ -99,11 +99,12 @@ hideInToc: true
 
 # Installation
 
-* From [Salome website](https://www.salome-platform.org/?page_id=2433), select get tarball archive for your os:
+* From [Salome website](https://www.salome-platform.org/?page_id=2433), select the archive tarball for your os:
 
 ```bash
-tar zxvf -C /opt/SALOME ..
-cd /opt/SALOME
+tar zxvf SALOME-....tgz -C /opt/
+mv /opt/SALOME-9.13.0-native-DB12-SRC /opt/SALOME-${VERSION}-native
+cd /opt/SALOME-${VERSION}-native
 ./install_bin.sh
 sat config SALOME-${VERSION}-native --check_system
 salome test
@@ -168,6 +169,17 @@ level: 3
 
 # Cube with hole (GUI mode)
 
+* Start salome:
+
+```bash
+salome [-w1] [-m GEOM,SMESH]
+```
+
+* Select **Geometry** module
+* Create Cube and Cylinder
+* Perform 
+
+::right::
 
 
 ---
@@ -178,10 +190,10 @@ level: 3
 # Cube with hole (TUI mode)
 
 ```python
+import salome
+salome.salome_init()
+ 
 from salome.geom import geomBuilder
-import math
-import SALOMEDS
-
 geompy = geomBuilder.New()
 
 O = geompy.MakeVertex(0, 0, 0)
@@ -195,12 +207,11 @@ Cut_1 = geompy.MakeCutList(Box_1, [Cylinder_1], True)
 geompy.addToStudy( Box_1, 'Box_1' )
 geompy.addToStudy( Cylinder_1, 'Cylinder_1' )
 geompy.addToStudy( Cut_1, 'Cut_1' )
-
-if salome.sg.hasDesktop():
-  salome.sg.updateObjBrowser()
 ```
 
 ::right::
+<img src="/img/salome-TUI-cube.png" />
+
 
 ---
 layout: two-cols
@@ -241,7 +252,7 @@ On Linux:
 
 On Windows:
 ```bash
-./run_salome.bat ….
+./run_salome.bat [-t] test.py args:--dx=2,--dy=2,..
 ```
 
 ::right::
@@ -275,6 +286,7 @@ geompy.DifferenceList(Bord, Hole_Faces)
 ```
 
 ::right::
+<img src="/img/salome-getface.png" />
 
 ---
 layout: two-cols
@@ -297,7 +309,13 @@ hideInToc: true
 
 # Boolean Operations
 
-add table of corespondance Gmsh / Salome
+
+| [Gmsh](https://gmsh.info/doc/texinfo/gmsh.html#Boolean-operations)     | [Salome](https://docs.salome-platform.org/latest/gui/GEOM/geompy_doc/group__l3__boolean.html#ga844f6f2affb6d492c56cba33ab959b81)                                                    |
+| --------------------------------------- | ----------------------------------------------------------- |
+| <code>BooleanIntersection</code>        | <code>MakeCommon</code>                                 |
+| <code>BooleanUnion</code>               | <code>MakeFuse</code>                                  |
+| <code>BooleanDifference</code>          | <code>MakeCut</code>         |
+| <code>BooleanFragments</code>           | <code>MakePartition</code>                                   |
 
 
 ---
@@ -335,9 +353,7 @@ level: 2
 * **Netgen** plugin
 
 ```python
-import  SMESH, SALOMEDS
 from salome.smesh import smeshBuilder
-
 smesh = smeshBuilder.New()
 
 Mesh_1 = smesh.Mesh(Cut_1)
@@ -356,11 +372,11 @@ level: 2
 
 # UnStructured Mesh (TUI)
 
-* **MeshGems** plugin (requires q valid license)
+* **MeshGems** plugin (requires a valid license)
 
 ```python
 from salome.smesh import smeshBuilder
-smesh =  smeshBuilder.New(salome.myStudy)
+smesh =  smeshBuilder.New()
 
 # create a mesh on the box
 mgtetraMesh = smesh.Mesh(box,"box: MG-Tetra and MG-CADSurf mesh")
@@ -383,6 +399,8 @@ level: 2
 * Create Groups from geometry
 
 ```python
+import SMESH
+
 Cut_1_1 = Mesh_1.GroupOnGeom(Cut_1,'Cut_1',SMESH.VOLUME)
 Group_1_1 = Mesh_1.GroupOnGeom(Group_1,'Group_1',SMESH.FACE)
 [ Box_1_1, Face_1_1, Face_2_1, Face_3_1, Face_4_1, Face_5_1, Face_6_1 ] = Mesh_1.GetGroups()
