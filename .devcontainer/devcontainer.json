@@ -42,7 +42,14 @@
 			"extensions": [
 				"ms-python.python",
 				"ms-python.vscode-pylance",
-				"ms-python.black-formatter"
+				"ms-python.black-formatter",
+				"bierner.emojisense",
+				"Nuxt.mdc",
+				"vscode-icons-team.vscode-icons",
+				"adamvoss.vscode-languagetool-en",
+				"adamvoss.vscode-languagetool-fr",
+				"adamvoss.vscode-languagetool",
+				"antfu.slidev"
 			],
 			"python.analysis.extraPaths": [
 				"./HIFIMAGNET/src/HIFIMAGNET",
