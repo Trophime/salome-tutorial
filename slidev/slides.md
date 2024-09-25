@@ -176,11 +176,237 @@ salome [-w1] [-m GEOM,SMESH]
 ```
 
 * Select **Geometry** module
-* Create Cube and Cylinder
-* Perform 
 
 ::right::
 
+![](/img/salome-modules.png)
+---
+layout: two-cols
+level: 3
+hideInToc
+---
+
+# Cube with hole (GUI mode)
+
+* Start salome:
+
+```bash
+salome [-w1] [-m GEOM,SMESH]
+```
+
+* Select **Geometry** module
+* Create Cube
+
+::right::
+
+![](/img/salome-cube.png)
+---
+layout: two-cols
+level: 3
+hideInToc
+---
+
+# Cube with hole (GUI mode)
+
+* Start salome:
+
+```bash
+salome [-w1] [-m GEOM,SMESH]
+```
+
+* Select **Geometry** module
+* Create Cube and Cylinder
+
+::right::
+
+![](/img/salome-cube-cyl.png)
+---
+layout: two-cols
+level: 3
+hideInToc
+---
+
+# Cube with hole (GUI mode)
+
+* Start salome:
+
+```bash
+salome [-w1] [-m GEOM,SMESH]
+```
+
+* Select **Geometry** module
+* Create Cube and Cylinder
+* Move the Cylinder
+* Perform the "cut"
+* Create Groups
+* Save CAD as XAO
+
+::right::
+
+![](/img/salome-movecyl.png)
+---
+layout: two-cols
+level: 3
+hideInToc
+---
+
+# Cube with hole (GUI mode)
+
+* Start salome:
+
+```bash
+salome [-w1] [-m GEOM,SMESH]
+```
+
+* Select **Geometry** module
+* Create Cube and Cylinder
+* Move the Cylinder
+* Perform the "cut"
+
+::right::
+
+![](/img/salome-cube-w-cyl.png)
+---
+layout: two-cols
+level: 3
+hideInToc
+---
+
+# Cube with hole (GUI mode)
+
+* Start salome:
+
+```bash
+salome [-w1] [-m GEOM,SMESH]
+```
+
+* Select **Geometry** module
+* Create Cube and Cylinder
+* Move the Cylinder
+* Perform the "cut"
+
+::right::
+
+![](/img/salome-whatis.png)
+---
+layout: two-cols
+level: 3
+hideInToc
+---
+
+# Cube with hole (GUI mode)
+
+* Start salome:
+
+```bash
+salome [-w1] [-m GEOM,SMESH]
+```
+
+* Select **Geometry** module
+* Create Cube and Cylinder
+* Move the Cylinder
+* Perform the "cut"
+* Create Groups
+
+::right::
+
+![](/img/salome-extract.png)
+---
+layout: two-cols
+level: 3
+hideInToc
+---
+
+# Cube with hole (GUI mode)
+
+* Start salome:
+
+```bash
+salome [-w1] [-m GEOM,SMESH]
+```
+
+* Select **Geometry** module
+* Create Cube and Cylinder
+* Move the Cylinder
+* Perform the "cut"
+* Create Groups
+
+::right::
+
+![](/img/salome-groupface.png)
+---
+layout: two-cols
+level: 3
+hideInToc
+---
+
+# Cube with hole (GUI mode)
+
+* Start salome:
+
+```bash
+salome [-w1] [-m GEOM,SMESH]
+```
+
+* Select **Geometry** module
+* Create Cube and Cylinder
+* Move the Cylinder
+* Perform the "cut"
+* Create Groups
+* Save CAD as XAO
+
+::right::
+
+![](/img/salome-exportXAO.png)
+---
+layout: two-cols
+level: 3
+hideInToc
+---
+
+# Cube with hole (GUI mode)
+
+* Start salome:
+
+```bash
+salome [-w1] [-m GEOM,SMESH]
+```
+
+* Select **Geometry** module
+* Create Cube and Cylinder
+* Move the Cylinder
+* Perform the "cut"
+* Create Groups
+* Save CAD as XAO
+* Dump python script
+
+::right::
+
+![](/img/salome-dump.png)
+---
+layout: two-cols
+level: 3
+hideInToc
+---
+
+# Cube with hole (GUI mode)
+
+* Start salome:
+
+```bash
+salome [-w1] [-m GEOM,SMESH]
+```
+
+* Select **Geometry** module
+* Create Cube and Cylinder
+* Move the Cylinder
+* Perform the "cut"
+* Create Groups
+* Save CAD as XAO
+
+::right::
+
+![](/img/salome-savestudy.png)
 
 ---
 layout: two-cols
