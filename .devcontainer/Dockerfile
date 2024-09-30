@@ -66,7 +66,9 @@ RUN apt-get -y install python3-pint python3-yaml python3-psutil python3-memory-p
     && apt-get -y install debian-keyring lsb-release
 
 # Install nodejs and npm 
-RUN apt-get -y install npm
+RUN apt-get -y install npm \
+    # Install playwright \
+    && apt-get -y install libnss3 libnspr4
 
 # RUN groupadd -g ${VGLUSERS_ID} vglusers && \
 
