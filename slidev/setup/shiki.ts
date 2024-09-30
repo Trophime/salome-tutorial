@@ -30,6 +30,7 @@ export default defineShikiSetup(() => {
             'python',
             'html',
             'vue',
+            'xml',
         ],
     }
 })

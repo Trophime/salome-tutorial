@@ -103,10 +103,10 @@ hideInToc: true
 
 ```bash
 tar zxvf SALOME-....tgz -C /opt/
-mv /opt/SALOME-9.13.0-native-DB12-SRC /opt/SALOME-${VERSION}-native
-cd /opt/SALOME-${VERSION}-native
+mv /opt/SALOME-9.13.0-native-DB12-SRC /opt/SALOME-9.13.0-native
+cd /opt/SALOME-9.13.0-native
 ./install_bin.sh
-sat config SALOME-${VERSION}-native --check_system
+sat config SALOME-9.13.0-native --check_system
 salome test
 /opt/SALOME/salome 
 ```
@@ -163,6 +163,7 @@ hideInToc: true
 <!-- youtube: srL10n7j2eQ -->
 
 ---
+transition: fade-out
 layout: two-cols
 level: 3
 ---
@@ -177,10 +178,20 @@ salome [-w1] [-m GEOM,SMESH]
 
 * Select **Geometry** module
 
+* 📷 Camera
+
+  | **Operation** | Mouse | Trackpad |
+  | --------- | ----- | -------- |
+  | Zoom  | ctrl left click |  ctrl left click |  
+  | Rotation  | ctrl right click |  ctrl right click |  
+  | Translation  | ctrl Wheel |  ctrl multi-finger |
+
+
 ::right::
 
 ![](/img/salome-modules.png)
 ---
+transition: fade-out
 layout: two-cols
 level: 3
 hideInToc
@@ -201,6 +212,7 @@ salome [-w1] [-m GEOM,SMESH]
 
 ![](/img/salome-cube.png)
 ---
+transition: fade-out
 layout: two-cols
 level: 3
 hideInToc
@@ -221,6 +233,7 @@ salome [-w1] [-m GEOM,SMESH]
 
 ![](/img/salome-cube-cyl.png)
 ---
+transition: fade-out
 layout: two-cols
 level: 3
 hideInToc
@@ -245,6 +258,7 @@ salome [-w1] [-m GEOM,SMESH]
 
 ![](/img/salome-movecyl.png)
 ---
+transition: fade-out
 layout: two-cols
 level: 3
 hideInToc
@@ -267,6 +281,7 @@ salome [-w1] [-m GEOM,SMESH]
 
 ![](/img/salome-cube-w-cyl.png)
 ---
+transition: fade-out
 layout: two-cols
 level: 3
 hideInToc
@@ -289,6 +304,7 @@ salome [-w1] [-m GEOM,SMESH]
 
 ![](/img/salome-whatis.png)
 ---
+transition: fade-out
 layout: two-cols
 level: 3
 hideInToc
@@ -312,6 +328,7 @@ salome [-w1] [-m GEOM,SMESH]
 
 ![](/img/salome-extract.png)
 ---
+transition: fade-out
 layout: two-cols
 level: 3
 hideInToc
@@ -335,6 +352,7 @@ salome [-w1] [-m GEOM,SMESH]
 
 ![](/img/salome-groupface.png)
 ---
+transition: fade-out
 layout: two-cols
 level: 3
 hideInToc
@@ -359,6 +377,7 @@ salome [-w1] [-m GEOM,SMESH]
 
 ![](/img/salome-exportXAO.png)
 ---
+transition: fade-out
 layout: two-cols
 level: 3
 hideInToc
@@ -384,6 +403,7 @@ salome [-w1] [-m GEOM,SMESH]
 
 ![](/img/salome-dump.png)
 ---
+transition: fade-out
 layout: two-cols
 level: 3
 hideInToc
@@ -435,12 +455,19 @@ geompy.addToStudy( Cylinder_1, 'Cylinder_1' )
 geompy.addToStudy( Cut_1, 'Cut_1' )
 ```
 
+To run:
+```bash
+./[mesa_]salome [-t] cube-trou.py
+```
+
+```bash
+./run_salome.bat [-t] cube-trou.py
+```
 ::right::
 <img src="/img/salome-TUI-cube.png" />
 
 
 ---
-layout: two-cols
 hideInToc: true
 level: 3
 ---
@@ -454,6 +481,7 @@ import argparse
 parser = argparse.ArgumentParser()
 parser.add_argument("--dx", type=float, help="set dx length")
 ...
+args = parser.parse_args()
 
 Box_1 = geompy.MakeBoxDXDYDZ(args.dx, args.dy, args.dz)
 Cylinder_1 = geompy.MakeCylinderRH(args.R, args.H)
@@ -461,22 +489,11 @@ geompy.TranslateDXDYDZ(Cylinder_1, args.dx/2., args.dy/2., -args.dz/4.)
 Cut_1 = geompy.MakeCutList(Box_1, [Cylinder_1], True)
 ```
 
-::right::
+To run:
 
----
-layout: two-cols
-hideInToc: true
-level: 3
----
-
-# Cube with hole (TUI mode)
-
-On Linux:
 ```bash
 ./[mesa_]salome [-t] test.py args:--dx=2,--dy=2,..
 ```
-
-On Windows:
 ```bash
 ./run_salome.bat [-t] test.py args:--dx=2,--dy=2,..
 ```
@@ -484,7 +501,6 @@ On Windows:
 ::right::
 
 ---
-layout: two-cols
 level: 3
 hideInToc: true
 ---
@@ -493,6 +509,18 @@ hideInToc: true
 
 * Get id for Boundaries
   
+<img src="/img/salome-getface.png" />
+
+---
+level: 3
+hideInToc: true
+---
+
+# Cube with hole (TUI mode)
+
+* Get id for Boundaries
+  
+
 ```python
 T = geompy.MakeVertex(0, 0, args.dz)
 Top = geompy.GetShapesOnPlaneWithLocation(Cut_1, geompy.ShapeType["FACE"], OZ, T, GEOM.ST_ON)
@@ -501,18 +529,17 @@ geompy.UnionList(GTop, Top)
 geompy.addToStudyInFather(Cut_1, GTop, "GTop")
 
 Hole_Faces = geompy.GetShapesOnShape(Cylinder_1, Cut_1, geompy.ShapeType["FACE"], GEOM.ST_ONIN)
-print(f"Len(faces)={len(Hole_Faces)}”)
+
 HoleBord = geompy.CreateGroup(Cut_1, geompy.ShapeType["FACE"])
 faces_ids = [geompy.GetSubShapeID(Cut_1, sub_face) for sub_face in Hole_Faces]
 geompy.UnionIDs(HoleBord, faces_ids)
+
 Bord = geompy.CreateGroup(Cut_1, geompy.ShapeType["FACE"])
 Faces = geompy.ExtractShapes(Cut_1, geompy.ShapeType["FACE"]) 
 geompy.UnionList(Bord, Faces)
 geompy.DifferenceList(Bord, Hole_Faces)
 ```
 
-::right::
-<img src="/img/salome-getface.png" />
 
 ---
 layout: two-cols
@@ -522,10 +549,25 @@ hideInToc: true
 
 # Cube with hole (TUI mode)
 
-* Save CAD as XAO file
-  * Split into 2 files: xml + brep
+* Save CAD:
+  * see [methods](https://docs.salome-platform.org/latest/gui/GEOM/geompy_doc/group__l2__import__export.html)
+  * Use **XAO** format
+    * [`ExportXAO()`](https://docs.salome-platform.org/latest/gui/GEOM/geompy_doc/group__l2__import__export.html#ga05cf9a41b29418ea475d43bf7b6d4eaa)
+    * Format: xml: for groups + brep
+    * Split into 2 files: xml + brep
+
+```python
+ExportXao(Cut_1, [Bord,Holes], None, "author", "Cut_1.xao", "Cut_1.brep")
+```
+
+💡Load in gmsh: since 4.13 💡
+
+```bash
+gmsh Cut_1.xao
+```
 
 ::right::
+
   
 ---
 layout: two-cols
@@ -553,6 +595,22 @@ hideInToc: true
 
 # Load CAD geometry
 
+* see [Import methods](https://docs.salome-platform.org/latest/gui/GEOM/geompy_doc/group__l2__import__export.html)
+
+```python
+Object = ImportXao("Cut_1.xao")
+```
+
+⚠️ may fails because of the path to the step file ⚠️
+
+```xml
+<shape format="BREP" file="/data/geometries/Oxford9-Axi.brep"/>
+```
+
+
+# Defeaturing
+
+* 😟 only in **SHAPER**
 
 ---
 layout: two-cols
@@ -656,6 +714,9 @@ hideInToc: true
 
 # Quad Mesh
 
+* **Hexablock** plugin
+* **Hexotic** plugin (requires a valid licence)
+
 ---
 layout: two-cols
 level: 2
@@ -667,6 +728,7 @@ level: 2
 layout: two-cols
 level: 2
 ---
+
 # Moving Mesh
 
 ---
