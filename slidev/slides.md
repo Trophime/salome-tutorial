@@ -123,7 +123,8 @@ docker run [-runtime=nvidia --gpus all -e NVIDIA_DRIVER_CAPABILITIES=all] -it --
 singularity pull salome-9.13.sif
 ```
 
-For this tutorial, we recommend to use the archive tarball from salome.
+💡 Salome is already installed on Unistra PC 💡
+   `/opt/SALOME-9.13.0-native-DB12-SRC/salome`
 
 
 ---
@@ -652,6 +653,7 @@ isDone = Mesh_1.Compute()
 ---
 layout: two-cols
 level: 2
+hideInToc: true
 ---
 
 # UnStructured Mesh (TUI)
@@ -676,6 +678,7 @@ mgtetraMesh.Compute()
 ---
 layout: two-cols
 level: 2
+hideInToc: true
 ---
 
 # UnStructured Mesh (TUI)
